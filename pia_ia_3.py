@@ -51,7 +51,7 @@ labels_head = []
 class_names = ['abdomen', 'breast','cxr', 'chest', 'hand', 'head']
 
 
-AMOUNT_PER_CLASS = 100
+AMOUNT_PER_CLASS = 1500
 
 TOTAL_IMAGES = AMOUNT_PER_CLASS * 6
 
@@ -298,7 +298,7 @@ print('Etiquetas reales:', test_labels_filtered)
 def show_labels(labels, predicted_labels, images, ncols=5):
     n = len(labels)
     nrows = (n + ncols - 1) // ncols
-    figsize = (10, 10)
+    figsize = (20, 5 * nrows)
 
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)
     fig.tight_layout()
