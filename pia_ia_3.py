@@ -205,17 +205,17 @@ train_labels_filtered = np.array(train_labels_filtered)
 test_images_rgb = np.array(test_images_rgb)
 test_labels_filtered = np.array(test_labels_filtered)
 
-train_labels_filtered = to_categorical(train_labels_filtered, num_classes=6)
-test_labels_filtered = to_categorical(test_labels_filtered, num_classes=6)
 
+train_labels_one_hot = to_categorical(train_labels_filtered, num_classes=6)
+test_labels_one_hot = to_categorical(test_labels_filtered, num_classes=6)
 
 
 datagen = ImageDataGenerator(rescale=1.0/255.0)
 
 batch_size = 32
 
-train_images_normalized = datagen.flow(train_images_rgb, train_labels_filtered, batch_size=batch_size)
-test_images_normalized = datagen.flow(test_images_rgb, test_labels_filtered, batch_size=batch_size)
+train_images_normalized = datagen.flow(train_images_rgb, train_labels_one_hot, batch_size=batch_size)
+test_images_normalized = datagen.flow(test_images_rgb, test_labels_one_hot, batch_size=batch_size)
 
 model = models.Sequential()
 model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(new_height, new_width, 1)))
@@ -296,7 +296,6 @@ print('Etiquetas predichas:', predicted_labels)
 print('Etiquetas reales:', test_labels_filtered)
 
 def show_labels(labels, predicted_labels, images, ncols=5):
-    class_names = ['abdomen', 'breast','cxr', 'chest', 'hand', 'head']
     n = len(labels)
     nrows = (n + ncols - 1) // ncols
     figsize = (10, 10)
@@ -325,5 +324,3 @@ def show_labels(labels, predicted_labels, images, ncols=5):
 
 # Mostrar las etiquetas de forma visual y con porcentajes
 show_labels(test_labels_filtered, predicted_labels, test_images_rgb)
-
-
